@@ -149,9 +149,7 @@ var saveHistory= function(){
   localStorage.setItem("historySearch",JSON.stringify(historySearch));
 }
 var createHistoryButton = function(name){
-  historySearch.push(name);
   $("#history").append($("<button>").addClass("btn btn-primary historyButton").text(name).css("width","100%"))
-  saveHistory()
 }
 var searchAction = function () {
   //search action method
@@ -159,6 +157,8 @@ var searchAction = function () {
     tempCityHolder = $("#cityInput").val();
     getGeoCode(tempCityHolder); //get Geo code from Google API
     createHistoryButton(tempCityHolder)
+    historySearch.push(tempCityHolder);
+    saveHistory();
     $("#cityInput").val(" "); //set the input to empty string
   } else {
     alert("Please enter a valid address");
@@ -188,5 +188,11 @@ var loadHistory = function(){
   }
 }
 loadHistory()
+var historyAction = function(event){
+ tempCityHolder=event.target.innerText;
+ getGeoCode(String(tempCityHolder)); //get Geo code from Google API
+
+}
+$(".historyButton").on("click",historyAction)
 searchButton.on("click", searchAction);//Search button action
 
