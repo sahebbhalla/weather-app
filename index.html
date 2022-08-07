@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
+    <main class="row">
+      <div class="left-bar col-sm-4 col-md-3 col-lg-3">
+        <!-- Page Form -->
+        <div class="form-group">
+          <label for="cityInput">Search for city : </label>
+          <input
+            type="city"
+            class="form-control"
+            id="cityInput"
+            placeholder="Toronto"
+          />
+          <button class="btn btn-primary" id="search">Search</button>
+        </div>
+        <hr class="my-4">
+        <!-- History -->
+        <div id ="history">
+
+        </div>
+      </div>
+   
+      <!-- City Details -->
+      <div class="right-area col-sm-8 col-md-9 col-lg-9">
+        <!-- Main city box -->
+        <div id ="mainDisplay" class="col-sm-12">
+
+        </div>
+        <div id ="secondaryDisplay"class="col-sm-12">
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

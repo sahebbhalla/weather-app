@@ -1,0 +1,36 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+header h1{
+    text-align: center;
+    font-weight: bolder;
+    color: aliceblue;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(61,61,122,1) 35%, rgba(0,212,255,1) 100%);
+    margin:0;
+}
+label{
+    font-size: 24px;
+    font-weight: bolder;
+}
+input{
+    margin-top:10px;
+}
+#search{
+    margin-top:10px;
+    width: 100%;
+    font-weight: bolder;
+}
+
+.form-group{
+    padding: 10px;
+}
+.right-area{
+}
+#mainDisplay{
+    border: 3px solid black;
+}
+.iconImage{
+    background-color: blue;;
+}
