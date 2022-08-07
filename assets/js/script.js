@@ -1,4 +1,5 @@
-var localStore = localStorage;
+var historySearch = [];
+
 var searchButton = $("#search"); //Search button selector
 var tempCityHolder = "";
 //Set color for UV index List depending on Uv Index
@@ -143,8 +144,14 @@ var getGeoCode = function (address) {
     });
   });
 };
+
+var saveHistory= function(){
+  localStorage.setItem("historySearch",JSON.stringify(historySearch));
+}
 var createHistoryButton = function(name){
+  historySearch.push(name);
   $("#history").append($("<button>").addClass("btn btn-primary historyButton").text(name).css("width","100%"))
+  saveHistory()
 }
 var searchAction = function () {
   //search action method
@@ -172,9 +179,14 @@ var getWeather = function (lat, long) {
   });
 };
 var loadHistory = function(){
-  if(localStorage.getItem("locations")==null){
-    
+  if(localStorage.getItem("historySearch")!==null){
+    historySearch=JSON.parse(localStorage.getItem("historySearch"));
+    for(var i = 0 ;i<historySearch.length;i++)
+    {
+      createHistoryButton(historySearch[i]);
+    }
   }
 }
-searchButton.on("click", searchAction);//Search button action
 loadHistory()
+searchButton.on("click", searchAction);//Search button action
+
