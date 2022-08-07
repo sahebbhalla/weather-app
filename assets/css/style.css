@@ -33,4 +33,16 @@ input{
 }
 .iconImage{
     background-color: blue;;
+} 
+.dayWeather{
+    margin:10px;
+    background-color: rgb(75, 75, 75);
+    color:wheat
+}
+.dailyList{
+    list-style: none;
+}
+.IconImage{
+    width:70px;
+    height:70px;
 }
