@@ -100,7 +100,7 @@ var createDayForcast = function (
         .addClass("card dayWeather col-sm-2")
         .append(
           $("<h4>").text(
-              " (" +
+            " (" +
               date.getMonth() +
               "/" +
               date.getDate() +
@@ -108,13 +108,15 @@ var createDayForcast = function (
               date.getFullYear() +
               ")"
           ),
-          $("<img>").attr(
-            "src",
-            "http://openweathermap.org/img/wn/" +
-              data.daily[i].weather[0].icon +
-              ".png"
-          ).addClass("IconImage"),list
-          
+          $("<img>")
+            .attr(
+              "src",
+              "http://openweathermap.org/img/wn/" +
+                data.daily[i].weather[0].icon +
+                ".png"
+            )
+            .addClass("IconImage"),
+          list
         )
     );
   }
@@ -122,7 +124,7 @@ var createDayForcast = function (
 var displayData = function (
   data //Render method
 ) {
-  $("#mainDisplay").html("")
+  $("#mainDisplay").html("");
   $("#secondaryDisplay").html("");
   createMainDiv(data); //Display current weather
   createDayForcast(data); //displayNext  5 day weather
@@ -135,30 +137,42 @@ var getGeoCode = function (address) {
     "&key=AIzaSyCXj93E80QFMSeJNrWWSLyCBn8BdyL9JGY";
 
   fetch(Url).then(function (response) {
-    return response.json().then(function (data) {
-      getWeather(
-        //Open weather API
-        data.results[0].geometry.location.lat, //lat
-        data.results[0].geometry.location.lng //long
-      );
-    });
+    return response
+      .json()
+      .then(function (data) {
+        if(data.status!=="ZERO_RESULTS"){
+          createHistoryButton(tempCityHolder);
+          historySearch.push(tempCityHolder);
+          saveHistory();
+        getWeather(
+          //Open weather API
+          data.results[0].geometry.location.lat, //lat
+          data.results[0].geometry.location.lng //long
+        );
+        }else{
+          alert("Please enter a valid city or Try entering an address ");
+        }
+      })
+
   });
 };
 
-var saveHistory= function(){
-  localStorage.setItem("historySearch",JSON.stringify(historySearch));
-}
-var createHistoryButton = function(name){
-  $("#history").append($("<button>").addClass("btn btn-primary historyButton").text(name).css("width","100%"))
-}
+var saveHistory = function () {
+  localStorage.setItem("historySearch", JSON.stringify(historySearch));
+};
+var createHistoryButton = function (name) {
+  $("#history").append(
+    $("<button>")
+      .addClass("btn btn-primary historyButton")
+      .text(name)
+      .css("width", "100%")
+  );
+};
 var searchAction = function () {
   //search action method
   if ($("#cityInput").val() !== "") {
     tempCityHolder = $("#cityInput").val();
     getGeoCode(tempCityHolder); //get Geo code from Google API
-    createHistoryButton(tempCityHolder)
-    historySearch.push(tempCityHolder);
-    saveHistory();
     $("#cityInput").val(" "); //set the input to empty string
   } else {
     alert("Please enter a valid address");
@@ -178,21 +192,18 @@ var getWeather = function (lat, long) {
     });
   });
 };
-var loadHistory = function(){
-  if(localStorage.getItem("historySearch")!==null){
-    historySearch=JSON.parse(localStorage.getItem("historySearch"));
-    for(var i = 0 ;i<historySearch.length;i++)
-    {
+var loadHistory = function () {
+  if (localStorage.getItem("historySearch") !== null) {
+    historySearch = JSON.parse(localStorage.getItem("historySearch"));
+    for (var i = 0; i < historySearch.length; i++) {
       createHistoryButton(historySearch[i]);
     }
   }
-}
-loadHistory()
-var historyAction = function(event){
- tempCityHolder=event.target.innerText;
- getGeoCode(String(tempCityHolder)); //get Geo code from Google API
-
-}
-$(".historyButton").on("click",historyAction)
-searchButton.on("click", searchAction);//Search button action
-
+};
+loadHistory();
+var historyAction = function (event) {
+  tempCityHolder = event.target.innerText;
+  getGeoCode(String(tempCityHolder)); //get Geo code from Google API
+};
+$(".historyButton").on("click", historyAction);
+searchButton.on("click", searchAction); //Search button action
